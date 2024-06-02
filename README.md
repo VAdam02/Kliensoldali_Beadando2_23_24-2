@@ -5,8 +5,8 @@
 Kérlek, töltsétek ki az adataitokkal beadás előtt!
 
 ```
-<Hallgató neve>
-<Neptun kódja>
+Vilányi Ádám
+YHJ39D
 Kliensoldali webprogramozás - beadandó
 Ezt a megoldást a fent írt hallgató küldte be és készítette a Kliensoldali webprogramozás kurzus számonkéréséhez.
 Kijelentem, hogy ez a megoldás a saját munkám. Nem másoltam vagy használtam harmadik féltől
@@ -244,7 +244,7 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 - [X] Navigáció: Navigáció megfelelően változik a be- és kijelentkezésnek megfelelően (1pt)
 - [X] Navigáció: Az oldal kezeli, hogy munkáltatóként vagy munkavállalóként jelentkezünk be, más más navigációt jelenít meg (1pt)
 - [ ] Főoldal: A Főoldal megjelenik a keresővel (1pt)
-- [ ] Főoldal: Az oldalon kilistázza a meghirdetett állásokat (1pt)
+- [X] Főoldal: Az oldalon kilistázza a meghirdetett állásokat (1pt)
 - [ ] Főoldal: Az oldalon lehet szűrni az állásokra (2pt)
 - [ ] Főoldal: Az állásokra kattintva átvisz minket az alkalmazás az álláshirdetés részletező oldalára, ahol az ahhoz tartozó adatok jelennek meg (2pt)
 - [ ] Regisztráció: A regisztráció működik (1pt)
