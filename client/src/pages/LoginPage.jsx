@@ -16,6 +16,7 @@ const LoginPage = () => {
     const [error, setError] = React.useState("");
 
     const handleSubmit = (e) => {
+        setError(""); // Reset error state
         e.preventDefault();
         apiLogin({ body: { email, password } })
             .unwrap()
@@ -39,24 +40,20 @@ const LoginPage = () => {
         <>
             <h1>Bejelentkezés</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Email</label>
-                    <Input 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Jelszó</label>
-                    <Input 
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
+                <label>Email</label>
+                <Input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <label>Jelszó</label>
+                <Input 
+                    type="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
                 {error && <div className="error">{error}</div>}
                 <Button type="submit">Bejelentkezés</Button>
             </form>
