@@ -3,49 +3,53 @@ import * as React from "react"
 import {
     NavigationMenu,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '@/store/reducers/userSlice'
 
 const NavBar = () => {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user.user);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
-                <NavigationMenuItem><Link to="/"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    PageIcon //TODO
-                </NavigationMenuLink></Link></NavigationMenuItem>
-                <NavigationMenuItem><Link to="/"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuItem><Link to="/" className={navigationMenuTriggerStyle()}>
+                    Jobhunter
+                </Link></NavigationMenuItem>
+                <NavigationMenuItem><Link to="/" className={navigationMenuTriggerStyle()}>
                     Főoldal
-                </NavigationMenuLink></Link></NavigationMenuItem>
+                </Link></NavigationMenuItem>
 
-                //TODO logged out
-                <NavigationMenuItem><Link to="/register"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Regisztráció
-                </NavigationMenuLink></Link></NavigationMenuItem>
-                <NavigationMenuItem><Link to="/login"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Bejelentkezés
-                </NavigationMenuLink></Link></NavigationMenuItem>
-                //logged out
+                {!user ? (<>
+                    <NavigationMenuItem><Link to="/register" className={navigationMenuTriggerStyle()}>
+                        Regisztráció
+                    </Link></NavigationMenuItem>
+                    <NavigationMenuItem><Link to="/login" className={navigationMenuTriggerStyle()}>
+                        Bejelentkezés
+                    </Link></NavigationMenuItem>
+                </>) : (<>
+                    <NavigationMenuItem><Link to="/profile" className={navigationMenuTriggerStyle()}>
+                        Profilom
+                    </Link></NavigationMenuItem>
 
-                //TODO logged in
-                <NavigationMenuItem><Link to="/profile"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Profilom
-                </NavigationMenuLink></Link></NavigationMenuItem>
+                    {user.role == "company" && (
+                        <NavigationMenuItem><Link to="/jobs/create" className={navigationMenuTriggerStyle()}>
+                            Álláshirdetés hozzáadása
+                        </Link></NavigationMenuItem>
+                    )}
 
-                //TODO logged in as employer
-                <NavigationMenuItem><Link to="/jobs/create"><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Álláshirdetés hozzáadása
-                </NavigationMenuLink></Link></NavigationMenuItem>
-                //logged in as employer
-
-                <NavigationMenuItem><Link ><NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Kijelentkezés //TODO logout
-                </NavigationMenuLink></Link></NavigationMenuItem>
-                //logged in
-
-
+                    <NavigationMenuItem><Link onClick={handleLogout} className={navigationMenuTriggerStyle()}>
+                        Kijelentkezés
+                    </Link></NavigationMenuItem>
+                </>)}
             </NavigationMenuList>
         </NavigationMenu>
     );

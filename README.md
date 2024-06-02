@@ -239,10 +239,10 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 ## **Pontozás**
 
 - [x] Ennek a README.md fájlnak a  kitöltése. (kötelező)
-- [ ] React használata (kötelező)
-- [ ] Redux használata (kötelező)
-- [ ] Navigáció: Navigáció megfelelően változik a be- és kijelentkezésnek megfelelően (1pt)
-- [ ] Navigáció: Az oldal kezeli, hogy munkáltatóként vagy munkavállalóként jelentkezünk be, más más navigációt jelenít meg (1pt)
+- [X] React használata (kötelező)
+- [X] Redux használata (kötelező)
+- [X] Navigáció: Navigáció megfelelően változik a be- és kijelentkezésnek megfelelően (1pt)
+- [X] Navigáció: Az oldal kezeli, hogy munkáltatóként vagy munkavállalóként jelentkezünk be, más más navigációt jelenít meg (1pt)
 - [ ] Főoldal: A Főoldal megjelenik a keresővel (1pt)
 - [ ] Főoldal: Az oldalon kilistázza a meghirdetett állásokat (1pt)
 - [ ] Főoldal: Az oldalon lehet szűrni az állásokra (2pt)
@@ -260,7 +260,7 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 - [ ] Munkáltató - Profilom: Álláshirdetés törlése működik (1pt)
 - [ ] Munkáltató - Álláshirdetés hozzáadása: Álláshirdetés hozzáadása működik (2pt)
 - [ ] Munkáltató - Profilom: Álláshirdetés szerkesztése működik (2pt)
-- [ ] Profilom: Kijelentkezés gomb működik(1pt)
+- [X] Profilom: Kijelentkezés gomb működik(1pt)
 - [ ] Igényes megjelenés (2pt)
 
 Összesen: 30 pont (Minimum: 12 pont)
