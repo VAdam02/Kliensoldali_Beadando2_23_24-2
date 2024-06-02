@@ -1,41 +1,67 @@
-import * as React from "react"
-import {useLoginMutation} from "@/store/reducers/userApiSlice.js";
-import {useDispatch} from "react-redux";
-import {login} from "@/store/reducers/userSlice.js";
-import {useNavigate} from "react-router-dom";
+import * as React from "react";
+import { useLoginMutation } from "@/store/reducers/userApiSlice";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/reducers/userSlice";
+import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const LoginPage = () => {
     const [apiLogin] = useLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    return (<>
-        //TODO
-        <button onClick={() => {
-            apiLogin({
-                body: {
-                    "email": "user1@jobhunter.hu",
-                    "password": "user1"
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        apiLogin({ body: { email, password } })
+            .unwrap()
+            .then(data => {
+                dispatch(login(data));
+                setEmail("");
+                setPassword("");
+                navigate("/");
+            })
+            .catch(err => {
+                if (err.status === 401) {
+                    setError("Hibás jelszó vagy email cím.");
+                } else {
+                    setError("Hiba történt. Próbálja újra később.");
+                    console.error("Login failed: ", err);
                 }
-            })
-            .unwrap().then(data => {
-                dispatch(login(data))
-            })
-            .then(() => navigate("/"))
-        }}>Login as company</button><br />
-        <button onClick={() => {
-            apiLogin({
-                body: {
-                    "email": "user2@jobhunter.hu",
-                    "password": "user2"
-                }
-            })
-            .unwrap().then(data => {
-                dispatch(login(data))
-            })
-            .then(() => navigate("/"))
-        }}>Login as user</button>
-    </>);
+            });
+    };
+
+    return (
+        <>
+            <h1>Bejelentkezés</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label>Email</label>
+                    <Input 
+                        type="email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Jelszó</label>
+                    <Input 
+                        type="password" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                {error && <div className="error">{error}</div>}
+                <Button type="submit">Bejelentkezés</Button>
+            </form>
+        </>
+    );
 }
 
 export default LoginPage;
