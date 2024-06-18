@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useDeleteExperienceMutation, useAddExperiencesMutation, useGetExperiencesQuery, useUpdateExperienceMutation } from "@/store/reducers/experienceApiSlice";
 import { setExperiences } from "@/store/reducers/experienceSlice";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
     const { data: experiencesData, error, isLoading, refetch } = useGetExperiencesQuery();
-    const [addExperiences] = useAddExperiencesMutation()
-    const [updateExperience] = useUpdateExperienceMutation()
-    const [deleteExperience] = useDeleteExperienceMutation()
+    const [addExperiences] = useAddExperiencesMutation();
+    const [updateExperience] = useUpdateExperienceMutation();
+    const [deleteExperience] = useDeleteExperienceMutation();
 
     const userState = useSelector(state => state.user.user);
 
@@ -31,56 +31,56 @@ const ProfilePage = () => {
         }
     }, [userState]);
 
-
     React.useEffect(() => {
         if (experiencesData) {
-            dispatch(setExperiences(experiencesData))
+            dispatch(setExperiences(experiencesData));
         }
-    }, [experiencesData])
+    }, [experiencesData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const newExperiences = newExperiencesState.map(exp => {
-            const split = exp.split(";")
+            const split = exp.split(";");
             return {
                 company: split[0],
                 title: split[1],
                 interval: split[2],
-            }
-        })
+            };
+        });
+
         addExperiences({ body: newExperiences })
             .unwrap()
-            .then((data) => {
-                dispatch(setExperiences({new: []}))
+            .then(() => {
+                dispatch(setExperiences({ new: [] }));
                 refetch();
             })
             .catch((error) => {
-                console.log(error);
-            })
+                console.error("Failed to add experiences:", error);
+            });
     };
 
     const handleEdit = (experience) => {
-        updateExperience({body: experience})
+        updateExperience({ body: experience })
             .unwrap()
-            .then((data) => {
-                refetch()
+            .then(() => {
+                refetch();
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }
+                console.error("Failed to update experience:", error);
+            });
+    };
 
     const handleDelete = (id) => {
         deleteExperience(id)
             .unwrap()
-            .then((data) => {
-                refetch()
+            .then(() => {
+                refetch();
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }
+                console.error("Failed to delete experience:", error);
+            });
+    };
 
     return (
         <div className="profile-page">
@@ -88,25 +88,25 @@ const ProfilePage = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Név</label>
-                    <Input 
-                        type="text" 
+                    <Input
+                        type="text"
                         value={name}
                         disabled
                     />
                 </div>
                 <div className="form-group">
                     <label>Email</label>
-                    <Input 
-                        type="email" 
+                    <Input
+                        type="email"
                         value={email}
                         disabled
                     />
                 </div>
                 <div className="form-group">
                     <label>Korábbi Munkatapasztalatok hozzáadása</label>
-                    <Textarea 
+                    <Textarea
                         value={newExperiencesState.join("\n")}
-                        onChange={(e) => dispatch(setExperiences({new: e.target.value.split("\n")}))}
+                        onChange={(e) => dispatch(setExperiences({ new: e.target.value.split("\n") }))}
                         placeholder="Cég;Pozíció;Évszámok"
                     />
                 </div>
@@ -135,32 +135,30 @@ const ProfilePage = () => {
                                         </DialogHeader>
                                         {editExperience && (
                                             <>
-                                            <div>
-                                                <label>Cég</label>
-                                                <Input
-                                                    type="text" 
-                                                    value={editExperience.company || ""}
-                                                    onChange={(e) => setEditExperience({ ...editExperience, company: e.target.value })}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label>Pozíció</label>
-                                                <Input
-                                                    type="text" 
-                                                    value={editExperience.title || ""}
-                                                    onChange={(e) => setEditExperience({ ...editExperience, title: e.target.value })}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label>Évszámok</label>
-                                                <Input
-                                                    type="text" 
-                                                    value={editExperience.interval || ""}
-                                                    onChange={(e) => setEditExperience({ ...editExperience, interval: e.target.value })}
-                                                />
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                            </div>
+                                                <div>
+                                                    <label>Cég</label>
+                                                    <Input
+                                                        type="text"
+                                                        value={editExperience.company || ""}
+                                                        onChange={(e) => setEditExperience(prevState => ({ ...prevState, company: e.target.value }))}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Pozíció</label>
+                                                    <Input
+                                                        type="text"
+                                                        value={editExperience.title || ""}
+                                                        onChange={(e) => setEditExperience(prevState => ({ ...prevState, title: e.target.value }))}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Évszámok</label>
+                                                    <Input
+                                                        type="text"
+                                                        value={editExperience.interval || ""}
+                                                        onChange={(e) => setEditExperience(prevState => ({ ...prevState, interval: e.target.value }))}
+                                                    />
+                                                </div>
                                             </>
                                         )}
                                         <DialogFooter className="sm:justify-start">

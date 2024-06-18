@@ -20,8 +20,8 @@ export const userApiSlice = createApi({
                 method: "POST",
                 body: {
                     ...body,
-                    strategy: "local",
                 },
+                url: "http://localhost:3030/users"
             })
         }),
     })
