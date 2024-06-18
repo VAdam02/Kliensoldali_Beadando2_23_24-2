@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,12 +11,17 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogT
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { data: experiencesData, error, isLoading, refetch } = useGetExperiencesQuery();
     const [addExperiences] = useAddExperiencesMutation();
     const [updateExperience] = useUpdateExperienceMutation();
     const [deleteExperience] = useDeleteExperienceMutation();
 
     const userState = useSelector(state => state.user.user);
+    if (!userState) {
+        navigate("/login");
+        return (<></>);
+    }
 
     const [name, setName] = React.useState(userState.fullname || "");
     const [email, setEmail] = React.useState(userState.email || "");

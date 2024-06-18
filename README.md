@@ -238,7 +238,7 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 
 ## **Pontozás**
 
-- [x] Ennek a README.md fájlnak a  kitöltése. (kötelező)
+- [X] Ennek a README.md fájlnak a  kitöltése. (kötelező)
 - [X] React használata (kötelező)
 - [X] Redux használata (kötelező)
 - [X] Navigáció: Navigáció megfelelően változik a be- és kijelentkezésnek megfelelően (1pt)
@@ -261,10 +261,11 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 - [ ] Munkáltató - Álláshirdetés hozzáadása: Álláshirdetés hozzáadása működik (2pt)
 - [ ] Munkáltató - Profilom: Álláshirdetés szerkesztése működik (2pt)
 - [X] Profilom: Kijelentkezés gomb működik(1pt)
-- [ ] Igényes megjelenés (2pt)
+- [X] Igényes megjelenés (2pt)
 
 Összesen: 30 pont (Minimum: 12 pont)
 
 - [ ] Plusz feladat: az álláshirdetések listája infinite-scrollinggal jelenik meg (+2pt)
 - [ ] Plusz feladat: az álláshirdetések létrehozásánál a munkáltató egy range-sliderrel tudja megadni a fizetés minimum és maximum értékét (+2pt)
 - [X] Plusz feladat: Modalban jelenik meg az oldal valamely része (vagy az álláshirdetés leírása, vagy a az álláshirdetésre jelentkező emberek listája, akár a profiljai) (+1pt)
+//README Profilnál a korábbi tapasztalatok szerkesztése

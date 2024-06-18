@@ -48,25 +48,30 @@ const RegisterPage = () => {
                         dispatch(login(data));
                         setEmail("");
                         setPassword("");
-
-                        const preparedExperiences = experiences.split("\n").map(exp => {
-                            const split = exp.split(";");
-                            return {
-                                company: split[0],
-                                title: split[1],
-                                interval: split[2],
-                            };
-                        });
-
-                        addExperiences({ body: preparedExperiences })
-                            .unwrap()
-                            .then(() => {
-                                setExperiences("");
-                                navigate("/");
-                            })
-                            .catch(error => {
-                                console.error("Failed to add experiences:", error);
+                        
+                        if (role === "jobseeker") {
+                            const preparedExperiences = experiences.split("\n").map(exp => {
+                                const split = exp.split(";");
+                                return {
+                                    company: split[0],
+                                    title: split[1],
+                                    interval: split[2],
+                                };
                             });
+
+                            addExperiences({ body: preparedExperiences })
+                                .unwrap()
+                                .then(() => {
+                                    setExperiences("");
+                                    navigate("/");
+                                })
+                                .catch(error => {
+                                    console.error("Failed to add experiences:", error);
+                                });
+                        } else {
+                            setExperiences("");
+                            navigate("/");
+                        }
                     })
                     .catch(err => {
                         if (err.status === 401) {
