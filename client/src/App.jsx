@@ -5,6 +5,7 @@ import RegisterPage from '@/pages/RegisterPage'
 import LoginPage from '@/pages/LoginPage'
 import ProfilePage from '@/pages/ProfilePage'
 import CreateJobPage from '@/pages/CreateJobPage'
+import JobDetailPage from '@/pages/JobDetailPage'
 import { Provider } from 'react-redux';
 import store from '@/store/store';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/jobs/create" element={<CreateJobPage />} />
+          <Route path="/job/:id" element={<JobDetailPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

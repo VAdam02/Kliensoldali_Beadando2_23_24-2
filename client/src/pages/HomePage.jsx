@@ -5,6 +5,9 @@ import { setJobs } from "@/store/reducers/jobSlice";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch"
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [ salaryFrom, setSalaryFrom ] = React.useState(0);
@@ -67,7 +70,22 @@ const HomePage = () => {
             {jobCount > 0 && (
                 <ul>
                     {jobsState.map(job => (
-                        <li key={job.id}>{JSON.stringify(job)}</li>
+                        <Link to={`/job/${job.id}`} key={job.id}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>{job.company}</CardTitle>
+                                    <CardDescription>{job.position}</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div>
+                                        <div><strong>Location:</strong> {job.city}</div>
+                                        <div><strong>Salary:</strong> {new Intl.NumberFormat('hu-HU', { style: 'currency', currency: 'HUF' }).format(job.salaryFrom)} - {new Intl.NumberFormat('hu-HU', { style: 'currency', currency: 'HUF' }).format(job.salaryTo)}</div>
+                                        <div><strong>Type:</strong> <Badge>{job.type}</Badge></div>
+                                        <div><strong>Home Office:</strong> {job.homeOffice ? "Available" : "Not Available"}</div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     ))}
                 </ul>
             )}
