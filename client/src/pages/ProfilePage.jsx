@@ -3,25 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useGetExperiencesQuery } from "@/store/reducers/experienceApiSlice";
-import { useAddExperiencesMutation } from "@/store/reducers/experienceApiSlice";
+import { useDeleteExperienceMutation, useAddExperiencesMutation, useGetExperiencesQuery, useUpdateExperienceMutation } from "@/store/reducers/experienceApiSlice";
 import { setExperiences } from "@/store/reducers/experienceSlice";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
     const { data: experiencesData, error, isLoading, refetch } = useGetExperiencesQuery();
     const [addExperiences] = useAddExperiencesMutation()
+    const [updateExperience] = useUpdateExperienceMutation()
+    const [deleteExperience] = useDeleteExperienceMutation()
 
     const userState = useSelector(state => state.user.user);
 
-    const [name, setName] = React.useState(userState.name || "");
+    const [name, setName] = React.useState(userState.fullname || "");
     const [email, setEmail] = React.useState(userState.email || "");
     const newExperiencesState = useSelector(state => state.experiences.newExperiences);
     const experiencesState = useSelector(state => state.experiences.experiences);
 
+    const [editExperience, setEditExperience] = React.useState(null);
+
     React.useEffect(() => {
         if (userState) {
-            setName(userState.name || "");
+            setName(userState.fullname || "");
             setEmail(userState.email || "");
         }
     }, [userState]);
@@ -55,6 +60,28 @@ const ProfilePage = () => {
             })
     };
 
+    const handleEdit = (experience) => {
+        updateExperience({body: experience})
+            .unwrap()
+            .then((data) => {
+                refetch()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleDelete = (id) => {
+        deleteExperience(id)
+            .unwrap()
+            .then((data) => {
+                refetch()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
     return (
         <div className="profile-page">
             <h1>Profilom</h1>
@@ -86,12 +113,69 @@ const ProfilePage = () => {
                 <Button type="submit">Mentés</Button>
             </form>
             <h2>Korábbi Munkahelyek</h2>
+            {isLoading && <div>Loading...</div>}
+            {error && <div>Error loading experiences: {error.message}</div>}
             {experiencesState && (
-                <ul>
-                    {experiencesState.concat(newExperiencesState).map((exp, index) => (
-                        <li key={index}>{JSON.stringify(exp)}</li>
+                <div>
+                    {experiencesState.map((exp, index) => (
+                        <Card key={index}>
+                            <CardHeader>
+                                <CardTitle>{exp.company}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <CardDescription>{exp.title} ({exp.interval})</CardDescription>
+                                <Button onClick={() => handleDelete(exp.id)}>Delete</Button>
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button onClick={() => setEditExperience(exp)}>Edit</Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Tapasztalat szerkesztése</DialogTitle>
+                                        </DialogHeader>
+                                        {editExperience && (
+                                            <>
+                                            <div>
+                                                <label>Cég</label>
+                                                <Input
+                                                    type="text" 
+                                                    value={editExperience.company || ""}
+                                                    onChange={(e) => setEditExperience({ ...editExperience, company: e.target.value })}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Pozíció</label>
+                                                <Input
+                                                    type="text" 
+                                                    value={editExperience.title || ""}
+                                                    onChange={(e) => setEditExperience({ ...editExperience, title: e.target.value })}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Évszámok</label>
+                                                <Input
+                                                    type="text" 
+                                                    value={editExperience.interval || ""}
+                                                    onChange={(e) => setEditExperience({ ...editExperience, interval: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="flex items-center space-x-2">
+                                            </div>
+                                            </>
+                                        )}
+                                        <DialogFooter className="sm:justify-start">
+                                            <DialogClose asChild>
+                                                <Button type="button" onClick={() => handleEdit(editExperience)}>
+                                                    Save
+                                                </Button>
+                                            </DialogClose>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </Dialog>
+                            </CardContent>
+                        </Card>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );

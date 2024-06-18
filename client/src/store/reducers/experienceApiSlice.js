@@ -21,7 +21,22 @@ export const experienceApiSlice = createApi({
                 body,
             })
         }),
+        updateExperience: build.mutation({
+            query: ({ body }) => ({
+                url: `/${body.id}`,
+                method: "PATCH",
+                body: {company: body.company,
+                       title: body.title,
+                       interval: body.interval},
+            })
+        }),
+        deleteExperience: build.mutation({
+            query: (id) => ({
+                url: `/${id}`,
+                method: "DELETE",
+            })
+        }),
     })
 })
 
-export const { useGetExperiencesQuery, useAddExperiencesMutation } = experienceApiSlice;
+export const { useGetExperiencesQuery, useAddExperiencesMutation, useUpdateExperienceMutation, useDeleteExperienceMutation } = experienceApiSlice;

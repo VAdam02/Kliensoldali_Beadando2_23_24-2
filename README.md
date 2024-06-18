@@ -252,7 +252,7 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 - [X] Regisztráció: Munkavállaló regisztráció esetén a felhasználó meg tudja adni a tapasztalatait (2pt)
 - [X] Bejelentkezés: Bejelentkezés működik (1pt)
 - [X] Munkavállaló - Profilom: Látszódnak a munkavállaló adatai (név, email cím), és az oldalon kilistázza az előző munkahelyeket (1pt)
-- [ ] Munkavállaló - Profilom: A korábban hozzáadott munkatapasztalatok szerkeszthetőek (1pt)
+- [X] Munkavállaló - Profilom: A korábban hozzáadott munkatapasztalatok szerkeszthetőek (1pt)
 - [ ] Munkavállaló - Álláshirdetések oldala: A gomb megjelenik, amivel az állásra tudunk jelentkezni. Sikeres kérés esetén a felhasználó számára megjelenik egy üzenet a sikeres jelentkezésről (1 pont)
 - [ ] Munkáltató - Navigáció: Kizárólag bejelentkezett munkáltató esetén jelenik meg az álláshirdetés hozzáadása opció (1pt)
 - [ ] Munkáltató - Profilom: Listázásra kerülnek a hozzáadott álláshirdetések, az egyes listaelemek mellett a szerkesztés, törlés és megtekintés opciók, megjelenik a “Hozzáadás” gomb (2pt)
@@ -267,4 +267,4 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 
 - [ ] Plusz feladat: az álláshirdetések listája infinite-scrollinggal jelenik meg (+2pt)
 - [ ] Plusz feladat: az álláshirdetések létrehozásánál a munkáltató egy range-sliderrel tudja megadni a fizetés minimum és maximum értékét (+2pt)
-- [ ] Plusz feladat: Modalban jelenik meg az oldal valamely része (vagy az álláshirdetés leírása, vagy a az álláshirdetésre jelentkező emberek listája, akár a profiljai) (+1pt)
+- [X] Plusz feladat: Modalban jelenik meg az oldal valamely része (vagy az álláshirdetés leírása, vagy a az álláshirdetésre jelentkező emberek listája, akár a profiljai) (+1pt)
